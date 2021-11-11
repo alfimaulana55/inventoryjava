@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.view;
 
 import com.koneksi.koneksi;
@@ -17,13 +18,15 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author GB
+ * @author Harits F
  */
 public class LoginForm extends javax.swing.JFrame {
+    
 PlaceHolder holder;
 public static String id_user;
 public int kesalahan;
 int totalLogin = 3;
+
     /**
      * Creates new form LoginForm
      */
@@ -33,58 +36,59 @@ int totalLogin = 3;
         holder = new PlaceHolder(t_password, "Masukan Password");
         holder.setCursiva(true);
     }
-    private void CekLogin(){
-    if(totalLogin != 0){
-    try{
-    Connection conn = koneksi.koneksi();
-    String sql = "select * from users where username=? and password=?";
-    String username = t_username.getText();
-    String query = "select * from users where username='"+username+"'";
+    
+    private void CekLogin() {
+        if (totalLogin != 0) {
+            try {
+                Connection conn = koneksi.koneksi();
+                String sql = "select * from users where username=? and password=?";
 
-    try {
-    Statement stt = conn.createStatement();
-    ResultSet res = stt.executeQuery(query);
-    PreparedStatement ps = conn.prepareStatement(sql);
-    ps.setString(1, username);
-    ps.setString(2, t_password.getText());
-    ResultSet rs = ps.executeQuery();
-    if(rs.next()){
-    if(res.next()){
-    id_user = res.getString("id_user");
-    String status = res.getString("status");
+                String username = t_username.getText();
+                String query = "select * from users where username='" + username + "'";
 
-    if(status.equals("gudang")){
-    this.dispose();
-    FrameGudang fu = new FrameGudang();
-    fu.setVisible(true);
-    }else if(status.equals("sales")){
-    this.dispose();
-    FrameSales fu = new FrameSales();
-    fu.setVisible(true);
-    }
-    }else{
-    JOptionPane.showMessageDialog(null, "Terjadi Kesalahan");
-    t_username.requestFocus();
-    }
-    }else{
-    totalLogin=totalLogin-1;
-    JOptionPane.showMessageDialog(null, "Maaf Username dan Password Invalid");
-    t_username.requestFocus();
-    }
-    } catch (HeadlessException | SQLException e) {
-    System.out.println(e);
+                try {
+                    Statement stt = conn.createStatement();
+                    ResultSet res = stt.executeQuery(query);
+                    PreparedStatement ps = conn.prepareStatement(sql);
+                    ps.setString(1, username);
+                    ps.setString(2, t_password.getText());
+                    ResultSet rs = ps.executeQuery();
+                    if (rs.next()) {
+                        if (res.next()) {
+                            id_user = res.getString("id_user");
+                            String status = res.getString("status");
 
+                            if (status.equals("gudang")) {
+                                this.dispose();
+                                FrameGudang fu = new FrameGudang();
+                                fu.setVisible(true);
+                            } else if (status.equals("sales")) {
+                                this.dispose();
+                                FrameSales fu = new FrameSales();
+                                fu.setVisible(true);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Terjadi Kesalahan");
+                            t_username.requestFocus();
+                        }
+                    } else {
+                        totalLogin = totalLogin - 1;
+                        JOptionPane.showMessageDialog(null, "Maaf Username dan Password Invalid");
+                        t_username.requestFocus();
+                    }
+                } catch (HeadlessException | SQLException e) {
+                    System.out.println(e);
+
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Kesempatan login telah habis");
+            this.dispose();
+        }
 
     }
-    }catch(Exception e){
-    System.out.println(e);
-    }
-    }else{
-    JOptionPane.showMessageDialog(null, "Kesempatan login telah habis");
-    this.dispose();
-    }
-
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,104 +109,65 @@ int totalLogin = 3;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("LOGIN FORM INVENTORY");
 
         jLabel2.setText("USERNAME");
 
         jLabel3.setText("PASSWORD");
 
-        t_username.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_usernameActionPerformed(evt);
-            }
-        });
-
-        t_password.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_passwordActionPerformed(evt);
-            }
-        });
-
         jButton1.setText("LOGIN");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jButton2.setText("KELUAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(48, 48, 48)
-                        .addComponent(jButton2)
-                        .addGap(22, 22, 22))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 1, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(t_username)))
+                            .addComponent(t_username)
                             .addComponent(t_password))))
-                .addGap(80, 80, 80))
+                .addGap(136, 136, 136))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(31, 31, 31)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(t_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                    .addComponent(t_username, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(t_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                    .addComponent(t_password, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(110, 110, 110))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void t_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_passwordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_t_passwordActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void t_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_usernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_t_usernameActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CekLogin();    
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

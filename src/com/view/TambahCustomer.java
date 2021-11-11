@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.view;
 import static com.koneksi.koneksi.conn;
 import static com.koneksi.koneksi.pst;
@@ -12,32 +13,33 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 /**
  *
- * @author GB
+ * @author Harits F
  */
 public class TambahCustomer extends javax.swing.JFrame {
-public String auto_num;
+
+    public String auto_num;
     /**
      * Creates new form TambahCustomer
      */
     public TambahCustomer() {
         initComponents();
     }
-
-    private void autonumber() {
-        try {
-            String an =  "SELECT MAX(id_customer) FROM customer";
+    private void autonumber(){
+        try{
+            String an = "SELECT MAX(id_customer) from customer";
             pst = conn.prepareStatement(an);
             res = pst.executeQuery();
-            if (res.next()) {
+            if (res.next()){
                 int a = res.getInt(1);
-                auto_num=(Integer.toString(a + 1));
+                auto_num=(Integer.toString(a+1));
             }
             res.close();
             pst.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null,e);
         }
     }
 
@@ -53,11 +55,11 @@ public String auto_num;
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         nama_customer = new javax.swing.JTextField();
         telp = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         alamat = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,9 +70,10 @@ public String auto_num;
 
         jLabel3.setText("Telp");
 
-        telp.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Input");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telpActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -78,14 +81,7 @@ public String auto_num;
         alamat.setRows(5);
         jScrollPane1.setViewportView(alamat);
 
-        jButton1.setText("INPUT ");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("BATAL");
+        jButton2.setText("Batal");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -99,73 +95,69 @@ public String auto_num;
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2))
-                            .addComponent(nama_customer, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(telp, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap(56, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
+                    .addComponent(telp)
+                    .addComponent(jScrollPane1)
+                    .addComponent(nama_customer))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(nama_customer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(56, 56, 56))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(telp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(41, 41, 41)
+                    .addComponent(jLabel3)
+                    .addComponent(telp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(65, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void telpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telpActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (nama_customer.getText().equals("") || alamat.getText().equals("") || telp.getText().equals("")) {
+        // TODO add your handling code here:
+        if(nama_customer.getText().equals("")|| alamat.getText().equals("")|| telp.getText().equals("")){
             JOptionPane.showMessageDialog(jButton1, "Isi data terlebih dahulu!!");
-        } else {
-            try {
+        }else{
+            try{
                 model_inventory mi = new model_inventory();
                 mi.TambahCustomer(this);
-            } catch (SQLException ex) {
-                Logger.getLogger(TambahCustomer.class.getName()).log(Level.SEVERE, null, ex);
+            }catch(SQLException ex){
+                Logger.getLogger(TambahCustomer.class.getName()).log(Level.SEVERE, null,ex);
             }
-        }        // TODO add your handling code here:
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
         nama_customer.setText(null);
         alamat.setText(null);
         telp.setText(null);
     }//GEN-LAST:event_jButton2ActionPerformed
-    
-    
+
     /**
      * @param args the command line arguments
      */
